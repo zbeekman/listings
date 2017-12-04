@@ -20,7 +20,7 @@ git:
 addons:
   apt:
     sources: ['ubuntu-toolchain-r-test', 'george-edison55-precise-backports']
-    packages: ['gfortran-7','libopenmpi-dev','openmpi-bin', 'cmake']
+    packages: ['gfortran', 'gfortran-7','libopenmpi-dev','openmpi-bin', 'cmake']
 
 before_install:
   - if [[ $TRAVIS_OS_NAME == osx ]]; then
