@@ -5,7 +5,8 @@ os:
   - linux
   - osx
 
-env: FC=gfortran
+env:
+  - FC=gfortran
 
 dist: trusty
 group: edge
@@ -18,18 +19,31 @@ git:
 
 addons:
   apt:
-    sources: ubuntu-toolchain-r-test
-    packages: ['gfortran-7','libopenmpi-dev','openmpi-bin']
+    sources: ['ubuntu-toolchain-r-test', 'george-edison55-precise-backports']
+    packages: ['gfortran-7','libopenmpi-dev','openmpi-bin', 'cmake']
 
 before_install:
   - if [[ $TRAVIS_OS_NAME == osx ]]; then
       brew update;
       brew install gcc;
       brew install open-mpi;
+      brew install cmake;
       brew install opencoarrays;
     fi
 
 install:
+    - if [[ $TRAVIS_OS_NAME == ]]; then
+        git clone --depth=2 --single-branch  https://github.com/sourceryinstitute/OpenCoarrays.git
+        mkdir build
+        cd build
+        export CC=gcc
+        $CC --version
+        $FC --version
+        cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX=${HOME}/OC ../OpenCoarrays
+        make -j $(nproc) install
+        export PATH="${HOME}/OC/bin:$PATH"
+        cd -
+      fi
     - make -k || true
 
 script:
