@@ -32,7 +32,7 @@ before_install:
     fi
 
 install:
-    - if [[ $TRAVIS_OS_NAME == ]]; then
+    - if [[ $TRAVIS_OS_NAME == linux ]]; then
         git clone --depth=2 --single-branch  https://github.com/sourceryinstitute/OpenCoarrays.git
         mkdir build
         cd build
