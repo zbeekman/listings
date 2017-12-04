@@ -33,16 +33,16 @@ before_install:
 
 install:
     - if [[ $TRAVIS_OS_NAME == linux ]]; then
-        git clone --depth=2 --single-branch  https://github.com/sourceryinstitute/OpenCoarrays.git
-        mkdir build
-        cd build
-        export CC=gcc
-        $CC --version
-        $FC --version
-        cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX=${HOME}/OC ../OpenCoarrays
-        make -j $(nproc) install
-        export PATH="${HOME}/OC/bin:$PATH"
-        cd -
+        git clone --depth=2 --single-branch  https://github.com/sourceryinstitute/OpenCoarrays.git;
+        mkdir build;
+        cd build;
+        export CC=gcc;
+        $CC --version;
+        $FC --version;
+        cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX=${HOME}/OC ../OpenCoarrays;
+        make -j $(nproc) install;
+        export PATH="${HOME}/OC/bin:$PATH";
+        cd -;
       fi
     - make -k || true
 
